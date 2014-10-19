@@ -16,7 +16,7 @@ namespace BSUIR.CDOCM.Roth.LogicElement
         private List<List<Value>> _singularCubes;
         private List<List<Value>> _dCubes;
 
-        public List<List<Value>> SingularCubes 
+        public List<List<Value>> SingularCubes
         {
             get { return _singularCubes ?? (_singularCubes = GenerateSingularCubes()); }
         }
@@ -40,7 +40,7 @@ namespace BSUIR.CDOCM.Roth.LogicElement
         {
             var vectors = GenerateAllVectors();
 
-            return SingularBonding(vectors);
+            return MaxCovering(SingularBonding(vectors));
         }
 
         private List<List<Value>> GenerateAllVectors()
@@ -89,31 +89,38 @@ namespace BSUIR.CDOCM.Roth.LogicElement
 
         private List<List<Value>> SingularBonding(List<List<Value>> sequences)
         {
+            var temp = new List<List<Value>>(sequences);
             var output = new List<List<Value>>();
-            for (int i = 0; i < sequences.Count - 1; i++)
+            for (int k = 0; k < 3; k++)
             {
-                int z = 0;
-                for (int j = i; j < sequences.Count - 1; j++) 
+                output.Clear();
+                for (int i = 0; i < temp.Count; i++)
                 {
-                    if (Conglutinable(sequences[i], sequences[j]))
+                    int z = 0;
+                    for (int j = i; j < temp.Count; j++)
                     {
-                        z++;
-                        var vector = Conglutinate(sequences[i], sequences[j]);
-                        output.Add(vector);
+                        if (Conglutinable(temp[i], temp[j]))
+                        {
+                            z++;
+                            var vector = Conglutinate(temp[i], temp[j]);
+                            output.Add(vector);
+                        }
                     }
+
+                    if (z < 1)
+                        output.Add(new List<Value>(temp[i]));
                 }
+                temp.Clear();
+                temp.AddRange(output);
 
-                if (z < 1) 
-                    output.Add(sequences[i]);
             }
-
             return output;
         }
 
         private bool Conglutinable(List<Value> vector1, List<Value> vector2)
         {
             int z = 0;
-            if (vector1.Last() == vector2.Last()) 
+            if (vector1.Last() == vector2.Last())
             {
                 for (int i = 0; i < vector1.Count - 1; i++)
                     if (vector1[i] != vector2[i])
@@ -133,10 +140,31 @@ namespace BSUIR.CDOCM.Roth.LogicElement
             {
                 var val1 = (Sequences.Value)vector1[k];
                 var val2 = (Sequences.Value)vector2[k];
-                vector.Add(val1.GetSingular(val2));
+                vector.Add(val1.GetIntersection(val2));
             }
 
             return vector;
+        }
+
+        private List<List<Value>> MaxCovering(List<List<Value>> sequences)
+        {
+            var temp = new List<List<Value>>(sequences);
+            for (int i = 0; i < temp.Count; i++)
+            {
+                if (!temp[i].HasX())
+                    continue;
+
+                for (int j = 0; j < temp.Count; j++)
+                {
+                    if ( i != j && temp[i].IsCovering(temp[j]))
+                    {
+                        temp.RemoveAt(j);
+                        i -= j > i ? 0 : 1;
+                        j--;
+                    }
+                }
+            }
+            return temp;
         }
 
         public abstract int F(List<Value> vector);

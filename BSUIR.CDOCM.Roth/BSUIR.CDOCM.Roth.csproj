@@ -39,8 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LogicElement\2OrNot.cs" />
+    <Compile Include="LogicElement\3And.cs" />
+    <Compile Include="LogicElement\3OrNot.cs" />
     <Compile Include="LogicElement\BaseLogicElement.cs" />
+    <Compile Include="LogicElement\M2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sequences\Value.cs" />
     <Compile Include="SingularRules\Intersection.cs" />

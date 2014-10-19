@@ -9,9 +9,13 @@ namespace BSUIR.CDOCM.ConsoleTest
     {
         static void Main(string[] args)
         {
-            var el = new _2OrNot();
+            var _3OrNot = new _3OrNot();
+            var _3And = new _3And();
+            var M2 = new M2();
 
-            var cubes = el.DCubes;
+            var _3OrNotCubes = _3OrNot.DCubes;
+            var _3AndCubes = _3And.DCubes;
+            var M2Cubes = M2.DCubes;
 
             return;
             Console.WriteLine("Set number of function: ");

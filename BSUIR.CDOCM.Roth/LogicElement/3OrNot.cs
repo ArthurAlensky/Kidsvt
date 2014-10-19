@@ -8,9 +8,9 @@ using BSUIR.CDOCM.Roth.Sequences;
 
 namespace BSUIR.CDOCM.Roth.LogicElement
 {
-    public class _2OrNot : BaseLogicElement
+    public class _3OrNot : BaseLogicElement
     {
-        public _2OrNot() : base(3) 
+        public _3OrNot() : base(3) 
         {
         }
 

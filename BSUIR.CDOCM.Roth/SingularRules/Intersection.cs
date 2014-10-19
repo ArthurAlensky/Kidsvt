@@ -29,7 +29,7 @@ namespace BSUIR.CDOCM.Roth.SingularRules
         }
 
 
-        public static Value GetSingular(this Value arg1, Value arg2)
+        public static Value GetIntersection(this Value arg1, Value arg2)
         {
             var res = arg1;
 
@@ -40,6 +40,26 @@ namespace BSUIR.CDOCM.Roth.SingularRules
                 res = Value.X;
 
             return res;
+        }
+
+        public static bool HasX( this List<Value> vector )
+        {
+            return vector.Contains(Value.X);
+        }
+
+        public static bool IsCovering(this List<Value> vector1, List<Value> vector2)
+        {
+            int z = 0;
+            if (vector1.Last() == vector2.Last())
+            {
+                for (int i = 0; i < vector1.Count - 1; i++)
+                    if (vector1[i] != vector2[i] && vector1[i] != Value.X)
+                        z++;
+
+                return z == 0;
+            }
+
+            return false;
         }
     }
 }

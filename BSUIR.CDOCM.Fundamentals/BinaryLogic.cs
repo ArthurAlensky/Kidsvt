@@ -32,5 +32,10 @@ namespace BSUIR.CDOCM.Fundamentals
         {
             return val == 0 ? 1 : 0;
         }
+
+        public static int Xor(this int val1, int val2)
+        {
+            return val1 ^ val2;
+        }
     }
 }
