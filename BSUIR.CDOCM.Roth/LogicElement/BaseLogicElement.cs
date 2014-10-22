@@ -13,6 +13,7 @@ namespace BSUIR.CDOCM.Roth.LogicElement
     {
         private int _numOfIns;
 
+        public List<BaseLogicElement> Inputs { get; set; }
         private List<List<Value>> _singularCubes;
         private List<List<Value>> _dCubes;
 
@@ -65,9 +66,9 @@ namespace BSUIR.CDOCM.Roth.LogicElement
         private List<List<Value>> DBonding(List<List<Value>> sequences)
         {
             var output = new List<List<Value>>();
-            for (int i = 0; i < sequences.Count - 1; i++)
+            for (int i = 0; i < sequences.Count; i++)
             {
-                for (int j = i; j < sequences.Count - 1; j++)
+                for (int j = i; j < sequences.Count; j++)
                 {
                     if (sequences[i].Last() != sequences[j].Last())
                     {
