@@ -11,7 +11,7 @@ namespace BSUIR.CDOCM.Roth.SingularRules
     {
         public static Value GetD(this Value arg1, Value arg2) 
         {
-            var res = Value.X;
+            var res = arg1;
 
             if (arg1 == Value.X)
                 res = arg2;
@@ -24,6 +24,19 @@ namespace BSUIR.CDOCM.Roth.SingularRules
 
             if (arg1 == Value.Zero && arg2 == Value.One)
                 res = Value._D;
+
+            return res;
+        }
+
+        public static Value GetDIntersection(this Value arg1, Value arg2)
+        {
+            var res = Value.O;
+
+            if (arg2 == arg1 || arg2 == Value.X)
+                res = arg1;
+
+            if (arg1 == arg2 || arg1 == Value.X)
+                res = arg2;
 
             return res;
         }

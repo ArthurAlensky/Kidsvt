@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BSUIR.CDOCM.Roth.LogicElement;
+using BSUIR.CDOCM.Roth.Sequences;
+using BSUIR.CDOCM.Roth.SingularRules;
 
 namespace BSUIR.CDOCM.DConsoleTest
 {
@@ -44,6 +46,39 @@ namespace BSUIR.CDOCM.DConsoleTest
         {
             var elements = new List<BaseLogicElement>();
             FindPath(failed, end, elements);
+            const Value x = Value.X;
+            List<Value> result;
+            foreach (var primitive in failed.PrimitivDCubes)
+            {
+                result = new List<Value>() {x, x, x, x, x, x, x, x, x, x, x, x, x};
+                Intersect(ref result, primitive, failed.Inputs);
+                foreach (var element in elements)
+                {
+                    foreach (var dCube in element.DCubes)
+                    {
+                        if (Intersect(ref result, dCube, element.Inputs))
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private static bool Intersect(ref List<Value> result, List<Value> vector, IEnumerable<int> inputs)
+        {
+            var res = new List<Value>(result);
+            int i = 0;
+            foreach (var input in inputs)
+            {
+                res[input] = res[input].GetDIntersection(vector[i++]);
+            }
+
+            if (res.Contains(Value.O))
+                return false;
+
+            result = new List<Value>(res);
+            return true;
         }
 
         private static bool FindPath(BaseLogicElement failed, BaseLogicElement end, List<BaseLogicElement> elements)

@@ -12,6 +12,7 @@ namespace BSUIR.CDOCM.Roth.Sequences
         One,
         X,
         D,
-        _D
+        _D,
+        O
     }
 }
