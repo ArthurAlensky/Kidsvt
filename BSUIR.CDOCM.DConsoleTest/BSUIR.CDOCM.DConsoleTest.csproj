@@ -1,18 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1E047E5B-098C-43CD-9B06-BFBD73E50154}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{9F74A7D6-4AAC-4879-9A44-8CC83CEBE331}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BSUIR.CDOCM.Roth</RootNamespace>
-    <AssemblyName>BSUIR.CDOCM.Roth</AssemblyName>
+    <RootNamespace>BSUIR.CDOCM.DConsoleTest</RootNamespace>
+    <AssemblyName>BSUIR.CDOCM.DConsoleTest</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -39,23 +41,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LogicElement\2And.cs" />
-    <Compile Include="LogicElement\2AndNot.cs" />
-    <Compile Include="LogicElement\2Or.cs" />
-    <Compile Include="LogicElement\3And.cs" />
-    <Compile Include="LogicElement\3OrNot.cs" />
-    <Compile Include="LogicElement\BaseLogicElement.cs" />
-    <Compile Include="LogicElement\M2.cs" />
-    <Compile Include="LogicElement\Not.cs" />
-    <Compile Include="LogicElement\_2OrNot.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sequences\Value.cs" />
-    <Compile Include="SingularRules\Intersection.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BSUIR.CDOCM.ConstantMistake\BSUIR.CDOCM.ConstantMistake.csproj">
+      <Project>{1444b1cd-9d54-4a91-b156-1510efe8bf30}</Project>
+      <Name>BSUIR.CDOCM.ConstantMistake</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BSUIR.CDOCM.Fundamentals\BSUIR.CDOCM.Fundamentals.csproj">
       <Project>{d8c921e0-476c-452f-8a4a-4eccafa23b34}</Project>
       <Name>BSUIR.CDOCM.Fundamentals</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BSUIR.CDOCM.Roth\BSUIR.CDOCM.Roth.csproj">
+      <Project>{1e047e5b-098c-43cd-9b06-bfbd73e50154}</Project>
+      <Name>BSUIR.CDOCM.Roth</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

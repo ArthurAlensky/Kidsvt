@@ -28,7 +28,6 @@ namespace BSUIR.CDOCM.Roth.SingularRules
             return res;
         }
 
-
         public static Value GetIntersection(this Value arg1, Value arg2)
         {
             var res = arg1;

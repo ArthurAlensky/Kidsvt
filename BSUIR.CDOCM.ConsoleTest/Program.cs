@@ -9,25 +9,6 @@ namespace BSUIR.CDOCM.ConsoleTest
     {
         static void Main(string[] args)
         {
-            var _3OrNot = new _3OrNot();
-            var _3And = new _3And();
-            var M2 = new M2();
-            var X1 = new X();
-            var X2 = new X();
-            var X3 = new X();
-            var X4 = new X();
-            var X5 = new X();
-
-            
-
-            var _3OrNotCubes = _3OrNot.DCubes;
-            var _3AndCubes = _3And.DCubes;
-            var M2Cubes = M2.DCubes;
-
-
-
-
-            return;
             Console.WriteLine("Set number of function: ");
             var f = int.Parse(Console.ReadLine());
 
@@ -55,7 +36,7 @@ namespace BSUIR.CDOCM.ConsoleTest
                         Console.Write(x);
                     }
 
-                    Console.WriteLine(" Test:{0} Actual:{1} " +  Environment.NewLine, test,actual);
+                    Console.WriteLine(" Test:{0} Actual:{1} " + Environment.NewLine, test, actual);
                 }
             }
 

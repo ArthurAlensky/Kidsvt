@@ -11,11 +11,14 @@ namespace BSUIR.CDOCM.Roth.LogicElement
 {
     public abstract class BaseLogicElement
     {
-        private int _numOfIns;
+        private readonly int _numOfIns;
 
-        public List<BaseLogicElement> Inputs { get; set; }
+        
+        public List<int> Inputs { get; set; }
         private List<List<Value>> _singularCubes;
         private List<List<Value>> _dCubes;
+        private List<List<Value>> _primitivDCubes;
+        private List<BaseLogicElement> _logics;
 
         public List<List<Value>> SingularCubes
         {
@@ -25,6 +28,29 @@ namespace BSUIR.CDOCM.Roth.LogicElement
         public List<List<Value>> DCubes
         {
             get { return _dCubes ?? (_dCubes = GenerateDCubes()); }
+        }
+
+        public List<List<Value>> PrimitivDCubes
+        {
+            get { return _primitivDCubes ?? (_primitivDCubes = GeneratePrimitivDCubes()); }
+        }
+
+        public List<BaseLogicElement> Logics {
+            get { return _logics ?? (_logics = new List<BaseLogicElement>()); }
+            set { _logics = value; }
+        }
+
+        private List<List<Value>> GeneratePrimitivDCubes()
+        {
+            var vectors = new List<List<Value>>();
+            foreach (var singularCube in SingularCubes)
+            {
+                var vector = new List<Value>(singularCube);
+                vector[vector.Count - 1] = vector[vector.Count - 1] == Value.Zero ? Value._D : Value.D;
+                vectors.Add(vector);
+            }
+
+            return vectors;
         }
 
         protected BaseLogicElement(int numOfIns)
