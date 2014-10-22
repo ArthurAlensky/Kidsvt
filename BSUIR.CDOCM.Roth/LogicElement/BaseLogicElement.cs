@@ -111,6 +111,26 @@ namespace BSUIR.CDOCM.Roth.LogicElement
                 }
             }
 
+
+            for (int i = sequences.Count - 1; i >= 0 ; i--)
+            {
+                for (int j = i; j >= 0; j--)
+                {
+                    if (sequences[i].Last() != sequences[j].Last())
+                    {
+                        var vector = new List<Value>(sequences[j].Count + 1);
+
+                        for (int k = 0; k < sequences[i].Count; k++)
+                        {
+                            var val1 = (Sequences.Value)sequences[i][k];
+                            var val2 = (Sequences.Value)sequences[j][k];
+                            vector.Add(val1.GetD(val2));
+                        }
+                        output.Add(vector);
+                    }
+                }
+            }
+
             return output;
         }
 

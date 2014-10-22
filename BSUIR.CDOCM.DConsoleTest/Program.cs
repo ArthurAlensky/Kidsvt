@@ -20,12 +20,12 @@ namespace BSUIR.CDOCM.DConsoleTest
             //var _3AndCubes = _3And.DCubes;
             //var M2Cubes = M2.DCubes;
 
-            var _2OrNot = new _2OrNot() { Inputs = new List<int>() { 0, 1 } };
-            var not = new Not() { Inputs = new List<int>() { 2 } };
-            var _2AndNot = new _2AndNot() { Inputs = new List<int>() { 4, 5 } };
-            var _3And = new _3And() { Inputs = new List<int>() { 3, 9, 6 }, Logics = new List<BaseLogicElement>() { _2AndNot } };
-            var _2Or = new _2Or() { Inputs = new List<int>() { 8, 10 }, Logics = new List<BaseLogicElement>() { not, _3And } };
-            var _2And = new _2And() { Inputs = new List<int>() { 7, 11 }, Logics = new List<BaseLogicElement>() { _2OrNot, _2Or } };
+            var _2OrNot = new _2OrNot() { Inputs = new List<int>() { 0, 1,7 } };
+            var not = new Not() { Inputs = new List<int>() { 2, 8 } };
+            var _2AndNot = new _2AndNot() { Inputs = new List<int>() { 4, 5, 9 } };
+            var _3And = new _3And() { Inputs = new List<int>() { 3, 9, 6, 10 }, Logics = new List<BaseLogicElement>() { _2AndNot } };
+            var _2Or = new _2Or() { Inputs = new List<int>() { 8, 10, 11 }, Logics = new List<BaseLogicElement>() { not, _3And } };
+            var _2And = new _2And() { Inputs = new List<int>() { 7, 11, 12 }, Logics = new List<BaseLogicElement>() { _2OrNot, _2Or } };
 
             var _2OrNotDCubes = _2OrNot.DCubes;
             var notdCubes = not.DCubes;
@@ -34,25 +34,42 @@ namespace BSUIR.CDOCM.DConsoleTest
             var _2OrDCubes = _2Or.DCubes;
             var _2AndDCubes = _2And.DCubes;
 
-            DWalkThrough(_2AndNot, _2And);
+            var elementList = new List<BaseLogicElement>() { _2OrNot, not, _2AndNot, _3And, _2Or, _2And };
+
+            Process(_2AndNot, _2And, elementList);
         }
 
-        private static void Process( BaseLogicElement failed )
+        private static void Process(BaseLogicElement failed, BaseLogicElement end, List<BaseLogicElement> elementList)
         {
+            var elements1 = new List<BaseLogicElement>();
+            FindPath(failed, end, elements1);
+            var elements2 = new List<BaseLogicElement>();
+            foreach (var el in elementList) 
+            {
+                if (!elements1.Contains(el)) 
+                {
+                    elements2.Add(el);
+                }
+            }
+            elements2.Remove(failed);
 
+            DirectWalk(failed, end, elements1, elements2);
         }
 
-        private static void DWalkThrough(BaseLogicElement failed, BaseLogicElement end)
+        private static void DirectWalk(BaseLogicElement failed, BaseLogicElement end, List<BaseLogicElement> elements1, List<BaseLogicElement> elements2)
         {
-            var elements = new List<BaseLogicElement>();
-            FindPath(failed, end, elements);
             const Value x = Value.X;
             List<Value> result;
             foreach (var primitive in failed.PrimitivDCubes)
             {
                 result = new List<Value>() {x, x, x, x, x, x, x, x, x, x, x, x, x};
+
+                Console.Write(Environment.NewLine);
+                primitive.ForEach(e => Console.Write(e));
+                Console.Write(":"+Environment.NewLine + "----------------------------------------" + Environment.NewLine);
+
                 Intersect(ref result, primitive, failed.Inputs);
-                foreach (var element in elements)
+                foreach (var element in elements1)
                 {
                     foreach (var dCube in element.DCubes)
                     {
@@ -62,7 +79,26 @@ namespace BSUIR.CDOCM.DConsoleTest
                         }
                     }
                 }
+
+                ReverseWalk(result, elements2);
             }
+        }
+
+        private static void ReverseWalk(List<Value> vector, List<BaseLogicElement> elements) 
+        {
+            foreach (var element in elements)
+            {
+                foreach (var sCube in element.SingularCubes)
+                {
+                    if (Intersect(ref vector, sCube, element.Inputs))
+                    {
+                        break;
+                    }
+                }
+            }
+
+            vector.ForEach(e => Console.Write(e));
+            Console.Write(Environment.NewLine);
         }
 
         private static bool Intersect(ref List<Value> result, List<Value> vector, IEnumerable<int> inputs)
