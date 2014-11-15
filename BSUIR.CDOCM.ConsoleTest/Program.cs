@@ -22,7 +22,7 @@ namespace BSUIR.CDOCM.ConsoleTest
                 uint m = 1;
                 for (int j = 1; j <= 7; j++)
                 {
-                    scheme.XVector[j] = (i & m) > 0 ? 1 : 0;
+                    scheme.XVector[j] = (byte)((i & m) > 0 ? 1 : 0);
                     m = m << 1;
                 }
 
