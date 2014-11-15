@@ -132,6 +132,37 @@ namespace BSUIR.CDOCM.SwitchingConsoleTest
                     switchingTable[i].Add(count);
                 }
             }
+
+            var excluded = new List<int>();
+            foreach (var test in switchingTable)
+            {
+                excluded.Add(test.Key);
+                var minSwitching = Min(switchingTable, test.Key, excluded);
+                Console.Write("TS{0}={1}{2}", test.Key + 1, minSwitching, Environment.NewLine);
+                excluded.Clear();
+            }
+        }
+
+        public static int Min( Dictionary<int, List<int>> table, int row, List<int> excluded ) 
+        {
+            Console.Write("TS{0}-", row + 1);
+            var min = int.MaxValue;
+            var minIndex = -1;
+            foreach (var switchVal in table[row])
+            {
+                if (switchVal < min && !excluded.Contains(table[row].IndexOf(switchVal)) )
+                {
+                    min = switchVal;
+                    minIndex = table[row].IndexOf(switchVal);
+                }
+            }
+
+            if (minIndex < 0)
+                return table[row][excluded.First()];
+
+            excluded.Add(minIndex);
+            min += Min(table, minIndex, excluded);
+            return min;
         }
     }
 }
