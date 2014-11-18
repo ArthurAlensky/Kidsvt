@@ -8,39 +8,53 @@ namespace BSUIR.CDOCM.LFSR
 {
     public class Lfsr
     {
-        bool[] bits;
+        byte[] bits;
 
-        public Lfsr(int bitCount, string seed)
+        public Lfsr(int bitCount)
         {
-            bits = new bool[bitCount];
-
-            for (int i = 0; i < bitCount; i++)
-                bits[i] = seed[i] == '1';
-
+            bits = new byte[bitCount];
         }
 
-        public string Registry
+        public Lfsr(byte[] reg)
+        {
+            bits = new byte[reg.Length];
+            Array.Copy(reg, 0, bits, 0, reg.Length);
+        }
+
+        public byte[] Registry
         {
             get
             {
-                var t = new char[bits.Length];
-                for (int i = 0; i < bits.Length; i++)
-                    t[i] = bits[i] ? '1' : '0';
-
-                return new string(t);
+                var registry = new byte[bits.Length];
+                Array.Copy(bits, 0, registry, 0, bits.Length);
+                return registry;
             }
         }
 
+        //Linear Feedback Shift Register
+        //#7. X7(+)X6(+)X5(+)X4(+)1
         public void Shift()
         {
-            // Wikipedia Logic.. Override if necessary
-            bool bnew = bits[bits.Length - 1] != bits[bits.Length - 2];
+            byte prev;
+            byte r;
 
-            for (int i = bits.Length - 1; i > 0; i--)
+            prev = bits[0];
+            for (int i = 1; i < bits.Length; i++)
             {
-                bits[i] = bits[i - 1];
+                if (i == 4 || i == 5 || i == 6) // element (+)
+                {
+                    r = (byte)(prev ^ bits[i]);
+                    bits[i] = prev;
+                    prev = r;
+                }
+                else
+                {
+                    byte t = bits[i];
+                    bits[i] = prev;
+                    prev = t;
+                }
             }
-            bits[0] = bnew;
+            bits[0] = prev;
         }
 
     }

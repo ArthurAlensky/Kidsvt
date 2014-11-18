@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSUIR.CDOCM.DConsoleTest", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSUIR.CDOCM.SwitchingConsoleTest", "BSUIR.CDOCM.SwitchingConsoleTest\BSUIR.CDOCM.SwitchingConsoleTest.csproj", "{EB306550-A8C2-445E-90E1-6F1417F024D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSUIR.CDOCM.LFSRConsoleTest", "BSUIR.CDOCM.LFSRConsoleTest\BSUIR.CDOCM.LFSRConsoleTest.csproj", "{C4134B3C-84C2-4F09-A38F-F118B5ECF3B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSUIR.CDOCM.LFSR", "BSUIR.CDOCM.LFSR\BSUIR.CDOCM.LFSR.csproj", "{D92AC857-B0F1-4E62-BFB9-9D367598824A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +47,14 @@ Global
 		{EB306550-A8C2-445E-90E1-6F1417F024D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB306550-A8C2-445E-90E1-6F1417F024D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB306550-A8C2-445E-90E1-6F1417F024D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4134B3C-84C2-4F09-A38F-F118B5ECF3B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4134B3C-84C2-4F09-A38F-F118B5ECF3B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4134B3C-84C2-4F09-A38F-F118B5ECF3B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4134B3C-84C2-4F09-A38F-F118B5ECF3B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D92AC857-B0F1-4E62-BFB9-9D367598824A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D92AC857-B0F1-4E62-BFB9-9D367598824A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D92AC857-B0F1-4E62-BFB9-9D367598824A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D92AC857-B0F1-4E62-BFB9-9D367598824A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
