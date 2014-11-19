@@ -11,15 +11,16 @@ namespace BSUIR.CDOCM.LFSRConsoleTest
     {
         static void Main(string[] args)
         {
-            for (int i = 0; i < 128; i++)
+            for (int i = 0; i < 1; i++)
             {
-                var lfsr = new LFSR.Lfsr(new byte[] { 1, 0, 0, 0, 1, 0, 0, 0 });
+                
                 for (int fun = 1; fun <= 13; fun++)
                 {
+                    
                     var minTicks = int.MaxValue;
-                    var register = lfsr.Registry;
                     for (int type = 0; type <= 1; type++)
                     {
+                        var lfsr = new LFSR.Lfsr(new byte[] { 1, 0, 0, 0, 0, 0, 0, 0 });
                         var scheme = new TestingSchema(fun, type);
                         var mistakes = new Dictionary<int, List<int>> 
                         { 
@@ -31,7 +32,11 @@ namespace BSUIR.CDOCM.LFSRConsoleTest
                         {
                             scheme.XVector = lfsr.Registry;
                             lfsr.Shift();
-
+                            foreach (var x in scheme.XVector)
+                            {
+                                Console.Write(x);
+                            }
+                            Console.Write(Environment.NewLine);
                             var test = scheme.Test();
                             var actual = scheme.Actual();
 
@@ -51,8 +56,9 @@ namespace BSUIR.CDOCM.LFSRConsoleTest
 
                         if (ticks < minTicks)
                         {
+                            Console.WriteLine(ticks);
+
                             minTicks = ticks;
-                            register = lfsr.Registry;
                         }
                     }
                 }

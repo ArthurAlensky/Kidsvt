@@ -7,7 +7,7 @@ namespace BSUIR.CDOCM.ConstantMistake
 
         public TestingSchema(int fun, int type)
         {
-            XVector = new byte[7];
+            XVector = new byte[8];
             Nodes = new[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
             Nodes[fun - 1] = type;
         }
